@@ -1,6 +1,6 @@
 import Hero from "@/features/home/Hero";
 import Fleet from "@/features/home/Fleet";
-import Benefits from "@/features/home/Benefits";
+import WhyChooseUs from "@/features/home/WhyChooseUs";
 import Testimonials from "@/features/home/Testimonials";
 import FAQ from "@/features/home/FAQ";
 import CTA from "@/features/home/CTA";
@@ -12,7 +12,7 @@ export default function Home() {
       <Hero />
       <Fleet />
       <About />
-      <Benefits />
+      <WhyChooseUs />
       <Testimonials />
       <FAQ />
       <CTA />
