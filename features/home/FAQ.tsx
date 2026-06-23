@@ -3,25 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-
-const faqs = [
-  {
-    question: "Dokumen apa saja yang diperlukan untuk menyewa?",
-    answer: "Anda memerlukan identitas resmi yang valid (KTP/Passport), SIM yang masih berlaku, dan dokumen pendukung lainnya sesuai syarat dan ketentuan kami."
-  },
-  {
-    question: "Apakah diperlukan deposit jaminan?",
-    answer: "Ya, untuk setiap penyewaan kami memerlukan deposit jaminan yang akan dikembalikan sepenuhnya setelah kendaraan dikembalikan dalam kondisi semula."
-  },
-  {
-    question: "Apakah tersedia layanan antar-jemput?",
-    answer: "Kami menawarkan layanan pengantaran dan penjemputan gratis untuk wilayah kota utama. Untuk lokasi lainnya, dapat dikenakan biaya tambahan."
-  },
-  {
-    question: "Bagaimana dengan kebijakan jarak tempuh?",
-    answer: "Sebagian besar penyewaan kami mencakup jarak tempuh harian yang dermawan. Ada opsi untuk jarak tempuh tak terbatas pada model tertentu."
-  }
-];
+import { faqs } from "@/data/faq";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -68,13 +50,19 @@ export default function FAQ() {
                     <span className="font-body-lg text-body-lg font-medium">{faq.question}</span>
                     <ChevronDown
                       size={18}
-                      className={`shrink-0 text-secondary transition-transform duration-300 ${isOpen ? "rotate-180 text-primary-container" : ""}`}
+                      className={`shrink-0 text-secondary transition-transform duration-300 ${
+                        isOpen ? "rotate-180 text-primary-container" : ""
+                      }`}
                     />
                   </button>
                   <div
-                    className={`transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? "max-h-40 opacity-100 pb-6" : "max-h-0 opacity-0 pb-0"}`}
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                      isOpen ? "max-h-40 opacity-100 pb-6" : "max-h-0 opacity-0 pb-0"
+                    }`}
                   >
-                    <p className="text-secondary font-body-md text-body-md leading-relaxed">{faq.answer}</p>
+                    <p className="text-secondary font-body-md text-body-md leading-relaxed">
+                      {faq.answer}
+                    </p>
                   </div>
                 </div>
               );

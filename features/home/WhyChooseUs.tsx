@@ -1,45 +1,5 @@
 import Link from "next/link";
-import { ShieldCheck, Clock, Star, Headphones, MapPin, Zap } from "lucide-react";
-
-const stats = [
-  { value: "50+", label: "Luxury Vehicles" },
-  { value: "99%", label: "Client Satisfaction" },
-  { value: "24/7", label: "Concierge Support" },
-  { value: "8+", label: "Years of Excellence" },
-];
-
-const features = [
-  {
-    icon: ShieldCheck,
-    title: "Fully Insured Fleet",
-    desc: "Every vehicle in our collection comes with comprehensive insurance coverage, so you drive with complete peace of mind.",
-  },
-  {
-    icon: Clock,
-    title: "Instant Confirmation",
-    desc: "Book your dream car and receive confirmation within minutes. No waiting, no back-and-forth — just seamless booking.",
-  },
-  {
-    icon: Star,
-    title: "White-Glove Experience",
-    desc: "From vehicle delivery to return, every touchpoint is handled with meticulous attention to detail and luxury standards.",
-  },
-  {
-    icon: Headphones,
-    title: "24/7 Concierge",
-    desc: "Our dedicated team is available around the clock to assist you — whether on the road or planning your next journey.",
-  },
-  {
-    icon: MapPin,
-    title: "Door-to-Door Delivery",
-    desc: "We bring the car to you. Choose your location — hotel, airport, or home — and we'll handle the rest.",
-  },
-  {
-    icon: Zap,
-    title: "No Hidden Fees",
-    desc: "Transparent pricing, always. What you see is what you pay — no surprises, no fine print, just honest luxury.",
-  },
-];
+import { stats, features } from "@/data/why-choose-us";
 
 export default function WhyChooseUs() {
   return (
@@ -63,9 +23,7 @@ export default function WhyChooseUs() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full opacity-[0.06]"
-        style={{
-          background: "radial-gradient(circle, #b81d1d 0%, transparent 70%)",
-        }}
+        style={{ background: "radial-gradient(circle, #b81d1d 0%, transparent 70%)" }}
       />
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
@@ -82,7 +40,7 @@ export default function WhyChooseUs() {
           </div>
           <div className="flex flex-col gap-6 md:max-w-sm">
             <p className="font-body-md text-body-md text-secondary">
-              We don't just rent cars — we curate experiences. Every detail, every vehicle,
+              We don&apos;t just rent cars — we curate experiences. Every detail, every vehicle,
               every interaction is designed to exceed the expectations of those who settle for nothing less than extraordinary.
             </p>
             <Link
@@ -101,9 +59,7 @@ export default function WhyChooseUs() {
             <div
               key={stat.label}
               className={`flex flex-col gap-2 py-8 px-6 ${
-                i !== stats.length - 1
-                  ? "border-r border-white/5"
-                  : ""
+                i !== stats.length - 1 ? "border-r border-white/5" : ""
               } ${i >= 2 ? "border-t border-white/5 md:border-t-0" : ""}`}
             >
               <span
@@ -134,9 +90,7 @@ export default function WhyChooseUs() {
               </div>
               <div className="flex flex-col gap-2">
                 <h3 className="text-base font-semibold text-white">{title}</h3>
-                <p className="font-body-md text-body-md text-secondary leading-relaxed">
-                  {desc}
-                </p>
+                <p className="font-body-md text-body-md text-secondary leading-relaxed">{desc}</p>
               </div>
               <div className="mt-auto h-[1px] w-0 bg-primary-container group-hover:w-8 transition-all duration-500" />
             </div>

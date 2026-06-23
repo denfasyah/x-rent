@@ -1,4 +1,16 @@
-export const cars = [
+export interface Car {
+  id: number;
+  brand: string;
+  name: string;
+  price: string;
+  image: string;
+  seats: number;
+  power: number;
+  transmission: string;
+  type: string;
+}
+
+export const cars: Car[] = [
   {
     id: 1,
     brand: "Mercedes-AMG",
