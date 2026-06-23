@@ -4,12 +4,12 @@ import { cars } from "@/data/cars";
 
 export default function Fleet() {
   return (
-    <section className="py-[160px] bg-black" id="fleet">
+    <section className="py-20 md:py-24 bg-black" id="fleet">
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between mb-16 gap-12 md:items-end">
+        <div className="flex flex-col md:flex-row justify-between mb-10 gap-8 md:items-end">
           <div className="md:w-1/2">
-            <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-xl leading-[1.1] font-medium tracking-tight text-white">
+            <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-lg leading-[1.1] font-medium tracking-tight text-white">
               Discover Our<br />Featured Collection
             </h2>
           </div>
@@ -19,9 +19,9 @@ export default function Fleet() {
             </p>
             <Link
               href="/fleet"
-              className="inline-flex items-center gap-3 text-white font-medium hover:text-primary-container transition-colors font-body-md text-body-md"
+              className="group inline-flex items-center gap-3 text-white font-medium hover:text-primary-container transition-colors duration-300 font-body-md text-body-md w-fit"
             >
-              <span className="w-6 h-[2px] bg-primary-container" />
+              <span className="w-6 h-[2px] bg-primary-container transition-all duration-300 group-hover:w-8" />
               View All Cars
             </Link>
           </div>

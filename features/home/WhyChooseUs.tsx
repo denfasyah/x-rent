@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Clock, Star, Headphones, MapPin, Zap } from "lucide-react";
+import { ShieldCheck, Clock, Star, Headphones, MapPin, Zap } from "lucide-react";
 
 const stats = [
   { value: "50+", label: "Luxury Vehicles" },
@@ -44,7 +44,7 @@ const features = [
 export default function WhyChooseUs() {
   return (
     <section
-      className="relative py-[160px] overflow-hidden"
+      className="relative py-20 md:py-24 overflow-hidden"
       id="why-choose-us"
       style={{ background: "linear-gradient(160deg, #141414 0%, #1a1a1a 50%, #111111 100%)" }}
     >
@@ -71,12 +71,12 @@ export default function WhyChooseUs() {
       <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
 
         {/* ── Header ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 md:items-end mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 md:items-end mb-12">
           <div className="flex flex-col gap-5">
             <span className="inline-flex items-center gap-2 text-white font-label-sm text-label-sm uppercase tracking-widest">
               Why Choose Us
             </span>
-            <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-xl leading-[1.1] tracking-tight text-white">
+            <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-lg leading-[1.1] tracking-tight text-white">
               The standard for<br />luxury car rental
             </h2>
           </div>
@@ -87,16 +87,16 @@ export default function WhyChooseUs() {
             </p>
             <Link
               href="/fleet"
-              className="group inline-flex items-center gap-2 text-white font-semibold text-sm hover:gap-4 transition-all duration-300 w-fit"
+              className="group inline-flex items-center gap-3 text-white font-medium hover:text-primary-container transition-colors duration-300 font-body-md text-body-md w-fit"
             >
+              <span className="w-6 h-[2px] bg-primary-container transition-all duration-300 group-hover:w-8" />
               Browse Our Fleet
-              <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
 
         {/* ── Stats row ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 mb-12">
           {stats.map((stat, i) => (
             <div
               key={stat.label}

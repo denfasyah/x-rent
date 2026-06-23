@@ -3,12 +3,12 @@ import { ArrowRight } from "lucide-react";
 
 export default function About() {
   return (
-    <section className="py-[160px] bg-black" id="about">
-      <div className="max-w-[1280px] mx-auto px-5 md:px-6 flex flex-col gap-16">
+    <section className="py-20 md:py-24 bg-black" id="about">
+      <div className="max-w-[1280px] mx-auto px-5 md:px-6 flex flex-col gap-10">
 
         {/* ── Part 1: Split headline + copy ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 md:items-end">
-          <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-xl leading-[1.1] tracking-tight text-white">
+          <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-lg leading-[1.1] tracking-tight text-white">
             Redefining the way<br />you experience luxury
           </h2>
           <div className="flex flex-col gap-6 md:max-w-sm">

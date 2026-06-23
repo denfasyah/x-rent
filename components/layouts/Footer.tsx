@@ -1,59 +1,97 @@
 import Link from "next/link";
+import { Globe, Mail, Share2, MapPin, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-surface-container-lowest w-full py-[160px] border-t border-outline-variant/20">
+    <footer className="bg-surface-container-lowest w-full pt-14 pb-8 border-t border-white/5">
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+
+        {/* Main grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10">
+
           {/* Brand */}
-          <div className="space-y-6">
-            <div className="font-headline-md text-headline-md font-bold text-on-surface">OPU—RENT</div>
-            <p className="font-body-md text-body-md text-secondary">
+          <div className="space-y-4">
+            <div className="font-headline-md text-headline-md font-bold text-white">x—RENT</div>
+            <p className="font-body-md text-body-md text-secondary leading-relaxed">
               Kemewahan bukan sekadar mobil, tapi bagaimana setiap momen dihargai. Kami hadir untuk memastikan setiap perjalanan Anda luar biasa.
             </p>
-            <div className="flex gap-4">
-              <a className="text-secondary hover:text-primary-container transition-colors" href="#"><span className="material-symbols-outlined">face_nod</span></a>
-              <a className="text-secondary hover:text-primary-container transition-colors" href="#"><span className="material-symbols-outlined">camera_enhance</span></a>
-              <a className="text-secondary hover:text-primary-container transition-colors" href="#"><span className="material-symbols-outlined">alternate_email</span></a>
+            <div className="flex gap-3 pt-1">
+              <a
+                className="w-9 h-9 flex items-center justify-center rounded-sm border border-white/10 text-secondary hover:border-primary-container hover:text-primary-container transition-all duration-300"
+                href="#"
+                aria-label="Social"
+              >
+                <Share2 size={15} />
+              </a>
+              <a
+                className="w-9 h-9 flex items-center justify-center rounded-sm border border-white/10 text-secondary hover:border-primary-container hover:text-primary-container transition-all duration-300"
+                href="#"
+                aria-label="Website"
+              >
+                <Globe size={15} />
+              </a>
+              <a
+                className="w-9 h-9 flex items-center justify-center rounded-sm border border-white/10 text-secondary hover:border-primary-container hover:text-primary-container transition-all duration-300"
+                href="#"
+                aria-label="Email"
+              >
+                <Mail size={15} />
+              </a>
             </div>
           </div>
-          {/* Links 1 */}
-          <div className="space-y-6">
-            <h4 className="font-label-sm text-label-sm uppercase tracking-widest text-on-surface">Quick Links</h4>
-            <nav className="flex flex-col gap-4">
-              <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Home</Link>
-              <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Featured Cars</Link>
-              <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Why Choose Us?</Link>
-              <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">How It Works</Link>
+
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h4 className="font-label-sm text-label-sm uppercase tracking-widest text-white">Quick Links</h4>
+            <nav className="flex flex-col gap-3">
+              <Link className="font-body-md text-body-md text-secondary hover:text-primary-container transition-colors duration-300" href="/">Home</Link>
+              <Link className="font-body-md text-body-md text-secondary hover:text-primary-container transition-colors duration-300" href="/fleet">Featured Cars</Link>
+              <Link className="font-body-md text-body-md text-secondary hover:text-primary-container transition-colors duration-300" href="/#why-choose-us">Why Choose Us?</Link>
+              <Link className="font-body-md text-body-md text-secondary hover:text-primary-container transition-colors duration-300" href="/#how-it-works">How It Works</Link>
             </nav>
           </div>
-          {/* Links 2 */}
-          <div className="space-y-6">
-            <h4 className="font-label-sm text-label-sm uppercase tracking-widest text-on-surface">Support</h4>
-            <nav className="flex flex-col gap-4">
-              <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">FAQ</Link>
-              <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">About</Link>
-              <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Contact</Link>
-              <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Privacy Policy</Link>
+
+          {/* Support */}
+          <div className="space-y-4">
+            <h4 className="font-label-sm text-label-sm uppercase tracking-widest text-white">Support</h4>
+            <nav className="flex flex-col gap-3">
+              <Link className="font-body-md text-body-md text-secondary hover:text-primary-container transition-colors duration-300" href="/faq">FAQ</Link>
+              <Link className="font-body-md text-body-md text-secondary hover:text-primary-container transition-colors duration-300" href="/about">About</Link>
+              <Link className="font-body-md text-body-md text-secondary hover:text-primary-container transition-colors duration-300" href="/contact">Contact</Link>
+              <Link className="font-body-md text-body-md text-secondary hover:text-primary-container transition-colors duration-300" href="#">Privacy Policy</Link>
             </nav>
           </div>
+
           {/* Contact */}
-          <div className="space-y-6">
-            <h4 className="font-label-sm text-label-sm uppercase tracking-widest text-on-surface">Contact Us</h4>
-            <div className="space-y-4 font-body-md text-body-md text-secondary">
-              <p className="flex items-center gap-3"><span className="material-symbols-outlined text-[18px]">location_on</span> Jakarta, Indonesia</p>
-              <p className="flex items-center gap-3"><span className="material-symbols-outlined text-[18px]">call</span> +62 21 555 0123</p>
-              <p className="flex items-center gap-3"><span className="material-symbols-outlined text-[18px]">mail</span> concierge@opurent.id</p>
+          <div className="space-y-4">
+            <h4 className="font-label-sm text-label-sm uppercase tracking-widest text-white">Contact Us</h4>
+            <div className="flex flex-col gap-3 font-body-md text-body-md text-secondary">
+              <p className="flex items-start gap-3">
+                <MapPin size={16} className="shrink-0 mt-0.5 text-primary-container" />
+                Jakarta, Indonesia
+              </p>
+              <p className="flex items-center gap-3">
+                <Phone size={16} className="shrink-0 text-primary-container" />
+                +62 21 555 0123
+              </p>
+              <p className="flex items-center gap-3">
+                <Mail size={16} className="shrink-0 text-primary-container" />
+                concierge@xrent.id
+              </p>
             </div>
           </div>
+
         </div>
-        <div className="mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[12px] text-secondary/60 uppercase tracking-widest">
-          <p className="">© 2025 Opurent—All Right Reserved</p>
-          <div className="flex gap-8">
+
+        {/* Bottom bar */}
+        <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3 text-[11px] text-secondary/50 uppercase tracking-widest">
+          <p>© 2025 xRENT — All Rights Reserved</p>
+          <div className="flex gap-6">
             <Link className="hover:text-white transition-colors" href="#">Terms of Service</Link>
             <Link className="hover:text-white transition-colors" href="#">Security</Link>
           </div>
         </div>
+
       </div>
     </footer>
   );

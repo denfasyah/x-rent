@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
@@ -30,44 +31,56 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-[160px] bg-surface-container-lowest">
+    <section className="py-20 md:py-24 bg-surface-container-lowest">
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
-        <div className="flex flex-col md:flex-row gap-16">
+        <div className="flex flex-col md:flex-row gap-10">
+
+          {/* Left — label + heading + contact link */}
           <div className="md:w-1/3 space-y-4">
-            <h2 className="font-headline-lg text-headline-lg">Your Questions — Answered</h2>
+            <span className="inline-flex items-center gap-2 text-white font-label-sm text-label-sm uppercase tracking-widest">
+              FAQ
+            </span>
+            <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-lg leading-[1.1] tracking-tight text-white">
+              Your Questions — Answered
+            </h2>
             <p className="font-body-md text-body-md text-secondary">
               Tim ahli kami berdedikasi untuk memahami kebutuhan unik Anda. Jika Anda memiliki pertanyaan lebih lanjut, jangan ragu untuk menghubungi kami.
             </p>
-            <Link 
-              href="/contact" 
-              className="inline-block text-primary-container font-label-sm uppercase tracking-widest border-b border-primary-container pb-1 pt-4 hover:tracking-[0.2em] transition-all duration-300"
+            <Link
+              href="/contact"
+              className="group inline-flex items-center gap-3 text-white font-medium hover:text-primary-container transition-colors duration-300 font-body-md text-body-md w-fit mt-2"
             >
+              <span className="w-6 h-[2px] bg-primary-container transition-all duration-300 group-hover:w-8" />
               Contact Us
             </Link>
           </div>
-          <div className="md:w-2/3 space-y-4">
+
+          {/* Right — accordion */}
+          <div className="md:w-2/3 space-y-0">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
-                <div key={index} className="group border-b border-outline-variant/10 overflow-hidden">
-                  <button 
+                <div key={index} className="border-b border-white/5 overflow-hidden">
+                  <button
                     onClick={() => toggleFAQ(index)}
-                    className="w-full py-6 flex items-center justify-between text-left hover:text-primary-container transition-colors duration-300"
+                    className="w-full py-6 flex items-center justify-between text-left hover:text-primary-container transition-colors duration-300 gap-4"
                   >
                     <span className="font-body-lg text-body-lg font-medium">{faq.question}</span>
-                    <span className={`material-symbols-outlined transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-                      expand_more
-                    </span>
+                    <ChevronDown
+                      size={18}
+                      className={`shrink-0 text-secondary transition-transform duration-300 ${isOpen ? "rotate-180 text-primary-container" : ""}`}
+                    />
                   </button>
-                  <div 
-                    className={`transition-all duration-500 ease-in-out ${isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
+                  <div
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? "max-h-40 opacity-100 pb-6" : "max-h-0 opacity-0 pb-0"}`}
                   >
-                    <p className="pb-6 text-secondary font-body-md text-body-md">{faq.answer}</p>
+                    <p className="text-secondary font-body-md text-body-md leading-relaxed">{faq.answer}</p>
                   </div>
                 </div>
               );
             })}
           </div>
+
         </div>
       </div>
     </section>

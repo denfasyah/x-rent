@@ -30,7 +30,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-[160px] bg-black relative overflow-hidden" id="how-it-works">
+    <section className="py-20 md:py-24 bg-black relative overflow-hidden" id="how-it-works">
       {/* bottom-left accent glow */}
       <div
         aria-hidden="true"
@@ -41,12 +41,12 @@ export default function HowItWorks() {
       <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
 
         {/* ── Header — same pattern as WhyChooseUs / Fleet ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 md:items-end mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 md:items-end mb-12">
           <div className="flex flex-col gap-5">
             <span className="inline-flex items-center gap-2 text-white font-label-sm text-label-sm uppercase tracking-widest">
               How It Works
             </span>
-            <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-xl leading-[1.1] tracking-tight text-white">
+            <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-lg leading-[1.1] tracking-tight text-white">
               From browse<br />to the open road
             </h2>
           </div>
@@ -58,10 +58,10 @@ export default function HowItWorks() {
             </p>
             <Link
               href="/fleet"
-              className="group inline-flex items-center gap-2 text-white font-semibold text-sm hover:gap-4 transition-all duration-300 w-fit"
+              className="group inline-flex items-center gap-3 text-white font-medium hover:text-primary-container transition-colors duration-300 font-body-md text-body-md w-fit"
             >
+              <span className="w-6 h-[2px] bg-primary-container transition-all duration-300 group-hover:w-8" />
               Start Browsing
-              <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
@@ -121,7 +121,7 @@ export default function HowItWorks() {
         </div>
 
         {/* ── Bottom CTA banner ── */}
-        <div className="mt-24 relative overflow-hidden rounded-sm border border-white/5 bg-white/[0.02]">
+        <div className="mt-12 relative overflow-hidden rounded-sm border border-white/5 bg-white/[0.02]">
           {/* subtle gradient right side */}
           <div
             aria-hidden="true"
