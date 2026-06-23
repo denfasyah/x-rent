@@ -5,6 +5,7 @@ import Testimonials from "@/features/home/Testimonials";
 import FAQ from "@/features/home/FAQ";
 import CTA from "@/features/home/CTA";
 import About from "@/features/home/About";
+import HowItWorks from "@/features/home/HowitWorks";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <Fleet />
       <About />
       <WhyChooseUs />
+      <HowItWorks />
       <Testimonials />
       <FAQ />
       <CTA />
