@@ -53,7 +53,7 @@ export default function CarCard({ car }: { car: Car }) {
 
           {/* Detail button */}
           <Link
-            href={`/fleet/${car.id}`}
+            href={`/fleet/${car.slug}`}
             className="shrink-0 flex items-center gap-1.5 bg-primary-container hover:brightness-110 transition-all duration-200 text-white text-[11px] font-bold uppercase tracking-wider px-3 py-2 rounded-sm"
             aria-label={`Detail ${car.name}`}
           >
