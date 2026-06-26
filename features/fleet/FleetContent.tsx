@@ -151,7 +151,7 @@ export default function FleetContent() {
                 </button>
                 {openDropdown === "type" && (
                   <div className="absolute top-full left-0 mt-2 w-full min-w-[160px] bg-[#0a0a0a] border border-white/10 rounded-sm py-2 shadow-xl z-50">
-                    {["All Types", "Sedan", "Coupe", "Convertible", "SUV", "Sports Car", "Supercar", "Classic", "Hatchback"].map(type => (
+                    {["All Types", "Sedan", "Coupe", "SUV", "Sports Car", "Supercar", "Classic"].map(type => (
                       <button 
                         key={type}
                         onClick={() => { setTypeFilter(type); setOpenDropdown(null); }}

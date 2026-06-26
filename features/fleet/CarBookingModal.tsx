@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Car } from "@/data/cars";
+import { WHATSAPP_NUMBER } from "@/data/contact";
 
 interface CarBookingModalProps {
   isOpen: boolean;
@@ -39,7 +40,7 @@ export default function CarBookingModal({ isOpen, onClose, car }: CarBookingModa
 
     const text = `Hello xRENT, I would like to book the *${car.brand} ${car.name}*.\n\n*Name:* ${name}\n*Start Date:* ${startDate}\n*End Date:* ${endDate}\n*Location:* ${location}\n*Requests:* ${requests ? requests : '-'}\n\nPlease confirm availability.`;
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/6281234567890?text=${encodedText}`, '_blank');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedText}`, '_blank');
     onClose();
   };
 

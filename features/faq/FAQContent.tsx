@@ -3,102 +3,30 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown, MessageCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { faqCategories } from "@/data/faq";
+import { WHATSAPP_NUMBER } from "@/data/contact";
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut", delay: i * 0.1 },
+  }),
+};
 
-interface FaqCategory {
-  category: string;
-  items: FaqItem[];
-}
-
-const faqData: FaqCategory[] = [
-  {
-    category: "Booking & Reservation",
-    items: [
-      {
-        question: "Bagaimana cara memesan kendaraan di xRENT?",
-        answer: "Proses pemesanan sangat mudah. Pilih kendaraan di halaman Fleet, klik tombol 'Book via WhatsApp', isi formulir reservasi dengan nama, tanggal sewa, dan lokasi pengantaran, lalu Anda akan diarahkan ke WhatsApp kami. Tim concierge akan mengkonfirmasi ketersediaan dalam waktu singkat.",
-      },
-      {
-        question: "Berapa lama proses konfirmasi booking?",
-        answer: "Kami biasanya mengkonfirmasi ketersediaan kendaraan dalam waktu 15-30 menit setelah permintaan diterima. Untuk pemesanan di luar jam operasional, konfirmasi akan dikirimkan di hari kerja berikutnya.",
-      },
-      {
-        question: "Bisakah saya membatalkan atau mengubah reservasi?",
-        answer: "Ya, pembatalan atau perubahan reservasi dapat dilakukan maksimal 48 jam sebelum tanggal sewa dimulai tanpa dikenakan biaya. Perubahan kurang dari 48 jam mungkin dikenakan biaya administrasi. Hubungi tim kami via WhatsApp untuk proses lebih lanjut.",
-      },
-      {
-        question: "Apakah saya bisa memesan untuk orang lain?",
-        answer: "Tentu saja. Anda bisa memesan atas nama orang lain, namun pengemudi utama harus hadir saat pengambilan kendaraan dengan membawa dokumen identitas dan SIM yang valid.",
-      },
-    ],
-  },
-  {
-    category: "Dokumen & Persyaratan",
-    items: [
-      {
-        question: "Dokumen apa saja yang diperlukan untuk menyewa?",
-        answer: "Anda memerlukan: (1) KTP atau Paspor yang masih berlaku, (2) SIM A yang masih berlaku minimal 2 tahun, (3) Kartu kredit atau bukti kemampuan finansial untuk deposit. Untuk kendaraan kategori supercar, mungkin diperlukan dokumen tambahan.",
-      },
-      {
-        question: "Apakah diperlukan deposit jaminan?",
-        answer: "Ya, setiap penyewaan memerlukan deposit jaminan yang besarnya bervariasi tergantung kategori kendaraan. Deposit akan dikembalikan sepenuhnya dalam 1-3 hari kerja setelah kendaraan dikembalikan dalam kondisi semula.",
-      },
-      {
-        question: "Berapa batas usia minimum untuk menyewa?",
-        answer: "Pengemudi harus berusia minimal 21 tahun dan memiliki SIM yang sudah aktif minimal 2 tahun. Untuk kendaraan supercar (Ferrari, Lamborghini, dll), batas usia minimum adalah 25 tahun.",
-      },
-    ],
-  },
-  {
-    category: "Kendaraan & Layanan",
-    items: [
-      {
-        question: "Apakah semua kendaraan diasuransikan?",
-        answer: "Ya, semua kendaraan dalam armada xRENT dilindungi oleh asuransi komprehensif premium. Asuransi mencakup kerusakan akibat kecelakaan, pencurian, dan tanggung jawab pihak ketiga. Detail cakupan akan dijelaskan saat proses reservasi.",
-      },
-      {
-        question: "Apakah tersedia layanan antar-jemput kendaraan?",
-        answer: "Kami menawarkan layanan pengantaran dan penjemputan ke lokasi pilihan Anda (hotel, bandara, rumah, kantor) untuk wilayah DKI Jakarta, Bali, Surabaya, dan Bandung. Untuk lokasi di luar area tersebut dapat dikenakan biaya tambahan.",
-      },
-      {
-        question: "Bagaimana dengan kebijakan jarak tempuh?",
-        answer: "Sebagian besar penyewaan kami sudah termasuk jarak tempuh tidak terbatas (unlimited mileage). Untuk beberapa kendaraan tertentu mungkin berlaku batas jarak harian — detailnya akan tertera di halaman masing-masing kendaraan.",
-      },
-      {
-        question: "Apakah kendaraan bisa dibawa ke luar kota atau luar pulau?",
-        answer: "Perjalanan antar kota dalam pulau yang sama umumnya diizinkan dengan pemberitahuan sebelumnya. Perjalanan antar pulau memerlukan izin khusus dan mungkin dikenakan biaya tambahan. Hubungi tim kami untuk rencana perjalanan Anda.",
-      },
-    ],
-  },
-  {
-    category: "Pembayaran & Harga",
-    items: [
-      {
-        question: "Metode pembayaran apa yang diterima?",
-        answer: "Kami menerima berbagai metode pembayaran: transfer bank, kartu kredit/debit, dan dompet digital (GoPay, OVO, Dana). Detail metode pembayaran akan dikonfirmasi oleh tim concierge kami.",
-      },
-      {
-        question: "Apakah ada biaya tersembunyi?",
-        answer: "Tidak ada biaya tersembunyi. Harga yang tercantum adalah harga sewa per hari sudah termasuk asuransi dan unlimited mileage. Biaya tambahan hanya berlaku jika ada layanan tambahan yang diminta (seperti supir, pengantaran ke luar kota, dll).",
-      },
-      {
-        question: "Kapan saya harus membayar?",
-        answer: "Pembayaran DP (minimal 50%) dilakukan setelah konfirmasi ketersediaan dari tim kami. Pelunasan dapat dilakukan saat pengantaran kendaraan atau sesuai kesepakatan dengan tim kami.",
-      },
-    ],
-  },
-];
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
 
 export default function FAQContent() {
   const [openKey, setOpenKey] = useState<string | null>(null);
-  const [activeCategory, setActiveCategory] = useState(faqData[0].category);
+  const [activeCategory, setActiveCategory] = useState(faqCategories[0].category);
 
   const toggle = (key: string) => setOpenKey(openKey === key ? null : key);
-  const activeData = faqData.find((c) => c.category === activeCategory);
+  const activeData = faqCategories.find((c) => c.category === activeCategory);
 
   return (
     <div className="pt-20 bg-background min-h-screen pb-20">
@@ -116,26 +44,38 @@ export default function FAQContent() {
             }}
           />
         </div>
-        <div className="relative z-10 text-center px-5 md:px-6 max-w-[1280px] mx-auto mt-10">
-          <p className="text-primary-container text-xs uppercase tracking-[0.3em] font-semibold mb-4">Help Center</p>
-          <h1 className="text-[36px] md:text-[56px] font-semibold text-white leading-tight mb-4">
+        <motion.div
+          className="relative z-10 text-center px-5 md:px-6 max-w-[1280px] mx-auto mt-10"
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
+          <motion.p variants={fadeUp} custom={0} className="text-primary-container text-xs uppercase tracking-[0.3em] font-semibold mb-4">
+            Help Center
+          </motion.p>
+          <motion.h1 variants={fadeUp} custom={1} className="text-[36px] md:text-[56px] font-semibold text-white leading-tight mb-4">
             Frequently Asked <span className="text-primary-container">Questions</span>
-          </h1>
-          <p className="text-white/60 text-[15px] md:text-[17px] font-light max-w-xl mx-auto">
-            Everything you need to know about renting with xRENT. Can't find your answer? Chat with us directly.
-          </p>
-        </div>
+          </motion.h1>
+          <motion.p variants={fadeUp} custom={2} className="text-white/60 text-[15px] md:text-[17px] font-light max-w-xl mx-auto">
+            Everything you need to know about renting with xRENT. Can&apos;t find your answer? Chat with us directly.
+          </motion.p>
+        </motion.div>
       </section>
 
       {/* FAQ Body */}
       <section className="max-w-[1280px] mx-auto px-5 md:px-6 py-20 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-16">
 
-          {/* Sidebar: Categories */}
-          <div className="lg:col-span-1">
+          {/* Sidebar */}
+          <motion.div
+            className="lg:col-span-1"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          >
             <p className="text-white/40 text-xs uppercase tracking-widest font-semibold mb-5">Categories</p>
             <nav className="space-y-1">
-              {faqData.map((cat) => (
+              {faqCategories.map((cat) => (
                 <button
                   key={cat.category}
                   onClick={() => { setActiveCategory(cat.category); setOpenKey(null); }}
@@ -150,32 +90,55 @@ export default function FAQContent() {
               ))}
             </nav>
 
-            {/* WhatsApp CTA */}
-            <div className="mt-10 p-6 bg-[#0a0a0a] border border-white/10 rounded-xl">
+            <motion.div
+              className="mt-10 p-6 bg-[#0a0a0a] border border-white/10 rounded-xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
               <MessageCircle size={28} className="text-primary-container mb-3" />
               <h3 className="text-white font-semibold mb-2">Still have questions?</h3>
               <p className="text-white/50 text-sm leading-relaxed mb-4">Our team is available 24/7. Chat with us directly on WhatsApp.</p>
               <a
-                href="https://wa.me/6281234567890"
+                href={`https://wa.me/${WHATSAPP_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-primary-container text-sm font-semibold hover:text-white transition-colors"
               >
-                Chat Now
-                <span className="text-xs">→</span>
+                Chat Now <span className="text-xs">→</span>
               </a>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Accordion */}
-          <div className="lg:col-span-3">
-            <h2 className="text-xl font-semibold text-white mb-8 pb-4 border-b border-white/5">{activeCategory}</h2>
-            <div className="space-y-0">
+          <motion.div
+            className="lg:col-span-3"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
+          >
+            <motion.h2
+              key={activeCategory}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-xl font-semibold text-white mb-8 pb-4 border-b border-white/5"
+            >
+              {activeCategory}
+            </motion.h2>
+
+            <motion.div
+              key={activeCategory + "-list"}
+              className="space-y-0"
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+            >
               {activeData?.items.map((item, i) => {
                 const key = `${activeCategory}-${i}`;
                 const isOpen = openKey === key;
                 return (
-                  <div key={key} className="border-b border-white/5 overflow-hidden">
+                  <motion.div key={key} variants={fadeUp} custom={i} className="border-b border-white/5 overflow-hidden">
                     <button
                       onClick={() => toggle(key)}
                       className="w-full py-6 flex items-center justify-between text-left gap-4 group"
@@ -183,26 +146,39 @@ export default function FAQContent() {
                       <span className={`font-medium text-[15px] transition-colors ${isOpen ? "text-primary-container" : "text-white group-hover:text-primary-container"}`}>
                         {item.question}
                       </span>
-                      <ChevronDown
-                        size={18}
-                        className={`shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180 text-primary-container" : "text-white/30"}`}
-                      />
+                      <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
+                        <ChevronDown size={18} className={`shrink-0 ${isOpen ? "text-primary-container" : "text-white/30"}`} />
+                      </motion.div>
                     </button>
-                    <div
-                      className={`transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? "max-h-60 opacity-100 pb-6" : "max-h-0 opacity-0 pb-0"}`}
-                    >
-                      <p className="text-white/55 text-[14px] leading-relaxed">{item.answer}</p>
-                    </div>
-                  </div>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.35, ease: "easeInOut" }}
+                        >
+                          <p className="pb-6 text-white/55 text-[14px] leading-relaxed">{item.answer}</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
                 );
               })}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Bottom CTA */}
-      <section className="max-w-[1280px] mx-auto px-5 md:px-6 pb-8">
+      <motion.section
+        className="max-w-[1280px] mx-auto px-5 md:px-6 pb-8"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-[#0a0a0a] border border-white/10 rounded-xl px-8 py-8">
           <div>
             <h3 className="text-white font-semibold text-xl mb-1">Ready to book your luxury experience?</h3>
@@ -217,7 +193,7 @@ export default function FAQContent() {
             </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }
