@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Car } from "@/data/cars";
+import { Car, getCars } from "@/data/cars";
 import CarHero from "./CarHero";
 import CarSpecs from "./CarSpecs";
 import CarGallery from "./CarGallery";
 import CarReservationCard from "./CarReservationCard";
 import CarBookingModal from "./CarBookingModal";
+import { useLanguage } from "@/lib/LanguageContext";
 
-export default function CarDetailClient({ car }: { car: Car }) {
+export default function CarDetailClient({ car: initialCar }: { car: Car }) {
+  const { lang } = useLanguage();
+  const car = getCars(lang).find(c => c.slug === initialCar.slug) || initialCar;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);

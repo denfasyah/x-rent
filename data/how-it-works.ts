@@ -1,3 +1,5 @@
+import type { Language } from "@/lib/LanguageContext";
+
 export interface HowItWorksStep {
   number: string;
   title: string;
@@ -5,7 +7,7 @@ export interface HowItWorksStep {
   detail: string;
 }
 
-export const howItWorksSteps: HowItWorksStep[] = [
+const stepsEn: HowItWorksStep[] = [
   {
     number: "01",
     title: "Browse & Choose",
@@ -31,3 +33,37 @@ export const howItWorksSteps: HowItWorksStep[] = [
     detail: "24/7 support on the road",
   },
 ];
+
+const stepsId: HowItWorksStep[] = [
+  {
+    number: "01",
+    title: "Telusuri & Pilih",
+    desc: "Jelajahi koleksi mobil mewah dan sport kami. Filter berdasarkan kategori, spesifikasi, atau harga — lalu pilih yang paling cocok untuk Anda.",
+    detail: "50+ kendaraan tersedia",
+  },
+  {
+    number: "02",
+    title: "Pesan dalam Menit",
+    desc: "Pilih tanggal, tentukan lokasi pengiriman favorit, dan selesaikan pemesanan. Konfirmasi instan — tanpa menunggu, tanpa telepon.",
+    detail: "Konfirmasi dalam 5 menit",
+  },
+  {
+    number: "03",
+    title: "Kami Antar ke Anda",
+    desc: "Tim kami mengantarkan mobil langsung ke pintu Anda — hotel, bandara, kantor, di manapun Anda berada. Serah terima berkelas, setiap saat.",
+    detail: "Pengiriman door-to-door",
+  },
+  {
+    number: "04",
+    title: "Berkendara & Nikmati",
+    desc: "Ambil kemudi dan rasakan jalan sebagaimana mestinya. Tim concierge kami tersedia 24/7 sepanjang perjalanan Anda.",
+    detail: "Dukungan 24/7 di jalan",
+  },
+];
+
+export function getHowItWorksSteps(lang: Language): HowItWorksStep[] {
+  return lang === "id" ? stepsId : stepsEn;
+}
+
+/** Backward-compat default export (English) */
+export const howItWorksSteps = stepsEn;

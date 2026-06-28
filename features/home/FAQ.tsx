@@ -3,46 +3,84 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import { faqs } from "@/data/faq";
+import { motion, type Variants } from "framer-motion";
+import { faqs, faqsId } from "@/data/faq";
+import { useLanguage } from "@/lib/LanguageContext";
+
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+const accordionVariant: Variants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: "easeOut", delay: i * 0.1 },
+  }),
+};
 
 export default function FAQ() {
+  const { t, lang } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const currentFaqs = lang === "id" ? faqsId : faqs;
+
   return (
     <section className="py-20 md:py-24 bg-surface-container-lowest">
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
-        <div className="flex flex-col md:flex-row gap-10">
-
+        <motion.div
+          className="flex flex-col md:flex-row gap-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={stagger}
+        >
           {/* Left — label + heading + contact link */}
-          <div className="md:w-1/3 space-y-4">
+          <motion.div variants={fadeUp} className="md:w-1/3 space-y-4">
             <span className="inline-flex items-center gap-2 text-white font-label-sm text-label-sm uppercase tracking-widest">
-              FAQ
+              {t("faq.label")}
             </span>
             <h2 className="font-headline-xl text-headline-xl-mobile md:text-headline-lg leading-[1.1] tracking-tight text-white">
-              Your Questions — Answered
+              {t("faq.heading")}
             </h2>
             <p className="font-body-md text-body-md text-secondary">
-              Tim ahli kami berdedikasi untuk memahami kebutuhan unik Anda. Jika Anda memiliki pertanyaan lebih lanjut, jangan ragu untuk menghubungi kami.
+              {t("faq.description")}
             </p>
-            <Link
-              href="/contact"
-              className="group inline-flex items-center gap-3 text-white font-medium hover:text-primary-container transition-colors duration-300 font-body-md text-body-md w-fit mt-2"
-            >
-              <span className="w-6 h-[2px] bg-primary-container transition-all duration-300 group-hover:w-8" />
-              Contact Us
-            </Link>
-          </div>
+            <div className="flex flex-col gap-2 mt-4">
+              {/* <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 text-white font-medium hover:text-primary-container transition-colors duration-300 font-body-md text-body-md w-fit"
+              >
+                <span className="w-6 h-[2px] bg-primary-container transition-all duration-300 group-hover:w-8" />
+                {t("faq.contactLink")}
+              </Link> */}
+              <Link
+                href="/faq"
+                className="group inline-flex items-center gap-3 text-white font-medium hover:text-primary-container transition-colors duration-300 font-body-md text-body-md w-fit"
+              >
+                <span className="w-6 h-[2px] bg-primary-container transition-all duration-300 group-hover:w-8" />
+                {t("faq.allFaqLink")}
+              </Link>
+            </div>
+          </motion.div>
 
           {/* Right — accordion */}
-          <div className="md:w-2/3 space-y-0">
-            {faqs.map((faq, index) => {
+          <motion.div variants={fadeUp} className="md:w-2/3 space-y-0">
+            {currentFaqs.map((faq, index) => {
               const isOpen = openIndex === index;
               return (
-                <div key={index} className="border-b border-white/5 overflow-hidden">
+                <motion.div key={index} custom={index} variants={accordionVariant} className="border-b border-white/5 overflow-hidden">
                   <button
                     onClick={() => toggleFAQ(index)}
                     className="w-full py-6 flex items-center justify-between text-left hover:text-primary-container transition-colors duration-300 gap-4"
@@ -64,12 +102,12 @@ export default function FAQ() {
                       {faq.answer}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );

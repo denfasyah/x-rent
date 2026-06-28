@@ -3,12 +3,15 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Search, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { cars } from "@/data/cars";
+import { getCars } from "@/data/cars";
 import CarCard from "@/features/fleet/CarCard";
+import PageHero from "@/components/ui/PageHero";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const ITEMS_PER_PAGE = 6;
 
 export default function FleetContent() {
+  const { t, lang } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("All Types");
   const [seatsFilter, setSeatsFilter] = useState("All Seats");
@@ -30,7 +33,7 @@ export default function FleetContent() {
   }, []);
 
   const filteredCars = useMemo(() => {
-    return cars
+    return getCars(lang)
       .filter((car) => {
         // Search
         const matchesSearch = car.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -57,7 +60,7 @@ export default function FleetContent() {
         if (sortPrice === "High to Low") return priceB - priceA;
         return 0;
       });
-  }, [searchQuery, typeFilter, seatsFilter, sortPrice]);
+  }, [searchQuery, typeFilter, seatsFilter, sortPrice, lang]);
 
   const totalPages = Math.ceil(filteredCars.length / ITEMS_PER_PAGE) || 1;
   const currentCars = filteredCars.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
@@ -70,25 +73,17 @@ export default function FleetContent() {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <section className="relative w-full overflow-hidden border-b border-outline-variant/10 h-[40vh] min-h-[300px] flex items-center justify-center">
-        <div className="absolute inset-0 z-0">
-          <img
-            alt="Hero background"
-            className="w-full h-full object-cover object-center brightness-75"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-ZZqZwJyahnH62H2krJFjyDaW_SeyMQayXx-fTkpwkj-cZJcSkCKxWYA2WgULl0ZWo2lfuT8NZJ73jY-eM3hud4FUXcYHfPbIQRvmvLdUowBDUAEmkpsLScjdjt-aIEK85ZA2_mjlwSl05uN1hmfYdR3JkvG4R1xYhk80qp6NGiWRh_vkeXj2lvJuad8MEP1DthzlLIgaAiSb7518aqexvHNuUR3ubaEpHJ2HKV6UZrq_MSqr17zk6O8t5_E6rF9TzeLQ1WTqtxdI"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-black/40 to-black/20"></div>
-        </div>
-        
-        <div className="relative z-10 flex flex-col justify-center items-center text-center px-5 md:px-6 w-full max-w-[1280px] mx-auto mt-10">
-          <h1 className="font-headline-xl-mobile md:font-headline-xl text-[40px] md:text-[64px] mb-4 leading-tight text-white font-semibold">
-            Discover Our <span className="text-primary-container">Elite Fleet</span>
-          </h1>
-          <p className="font-body-lg text-[16px] md:text-[18px] text-white/90 max-w-2xl font-light">
-            Immerse yourself in a curated collection of the world's finest vehicles, where every car is a masterpiece of design and high performance.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={t("page.fleet.eyebrow")}
+        title={
+          <>
+            {t("page.fleet.title1")} <span className="text-primary-container">{t("page.fleet.title2")}</span>
+          </>
+        }
+        description={t("page.fleet.description")}
+        backgroundSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuB-ZZqZwJyahnH62H2krJFjyDaW_SeyMQayXx-fTkpwkj-cZJcSkCKxWYA2WgULl0ZWo2lfuT8NZJ73jY-eM3hud4FUXcYHfPbIQRvmvLdUowBDUAEmkpsLScjdjt-aIEK85ZA2_mjlwSl05uN1hmfYdR3JkvG4R1xYhk80qp6NGiWRh_vkeXj2lvJuad8MEP1DthzlLIgaAiSb7518aqexvHNuUR3ubaEpHJ2HKV6UZrq_MSqr17zk6O8t5_E6rF9TzeLQ1WTqtxdI"
+        heightClass="h-[40vh] min-h-[300px]"
+      />
 
       {/* Filter Bar */}
       <section className="sticky top-20 z-30 bg-background/90 backdrop-blur-md border-b border-white/10" ref={dropdownRef}>
@@ -284,7 +279,7 @@ export default function FleetContent() {
             <img
               alt="CTA background"
               className="w-full h-full object-cover brightness-50"
-              src={cars[0].image}
+              src={getCars(lang)[0].image}
             />
             <div className="absolute inset-0 bg-black/75"></div>
           </div>

@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { ShieldCheck, Clock, Star, Headphones, MapPin, Zap } from "lucide-react";
+import type { Language } from "@/lib/LanguageContext";
 
 export interface Stat {
   value: string;
@@ -18,6 +19,17 @@ export const stats: Stat[] = [
   { value: "24/7", label: "Concierge Support" },
   { value: "8+", label: "Years of Excellence" },
 ];
+
+export const statsId: Stat[] = [
+  { value: "50+", label: "Kendaraan Mewah" },
+  { value: "99%", label: "Kepuasan Klien" },
+  { value: "24/7", label: "Dukungan Concierge" },
+  { value: "8+", label: "Tahun Berpengalaman" },
+];
+
+export function getStats(lang: Language): Stat[] {
+  return lang === "id" ? statsId : stats;
+}
 
 export const features: Feature[] = [
   {
@@ -51,3 +63,40 @@ export const features: Feature[] = [
     desc: "Transparent pricing, always. What you see is what you pay — no surprises, no fine print, just honest luxury.",
   },
 ];
+
+export const featuresId: Feature[] = [
+  {
+    icon: ShieldCheck,
+    title: "Armada Bergaransi Penuh",
+    desc: "Setiap kendaraan dalam koleksi kami dilengkapi asuransi komprehensif, sehingga Anda berkendara dengan ketenangan pikiran penuh.",
+  },
+  {
+    icon: Clock,
+    title: "Konfirmasi Instan",
+    desc: "Pesan mobil impian Anda dan terima konfirmasi dalam hitungan menit. Tanpa menunggu, tanpa bolak-balik — pemesanan yang mulus.",
+  },
+  {
+    icon: Star,
+    title: "Layanan Kelas Atas",
+    desc: "Dari pengiriman kendaraan hingga pengembalian, setiap titik layanan ditangani dengan perhatian penuh dan standar kemewahan.",
+  },
+  {
+    icon: Headphones,
+    title: "Concierge 24/7",
+    desc: "Tim kami tersedia sepanjang waktu untuk membantu Anda — baik di perjalanan maupun saat merencanakan petualangan berikutnya.",
+  },
+  {
+    icon: MapPin,
+    title: "Pengiriman Door-to-Door",
+    desc: "Kami membawa mobil ke Anda. Pilih lokasi — hotel, bandara, atau rumah — dan kami yang mengurus sisanya.",
+  },
+  {
+    icon: Zap,
+    title: "Tanpa Biaya Tersembunyi",
+    desc: "Harga transparan, selalu. Yang Anda lihat adalah yang Anda bayar — tanpa kejutan, tanpa huruf kecil, hanya kemewahan jujur.",
+  },
+];
+
+export function getFeatures(lang: Language): Feature[] {
+  return lang === "id" ? featuresId : features;
+}

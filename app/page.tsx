@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/features/home/Hero";
 import Fleet from "@/features/home/Fleet";
 import WhyChooseUs from "@/features/home/WhyChooseUs";
@@ -6,6 +7,12 @@ import FAQ from "@/features/home/FAQ";
 import CTA from "@/features/home/CTA";
 import About from "@/features/home/About";
 import HowItWorks from "@/features/home/HowitWorks";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "xRENT — Indonesia's premier luxury car rental service. Curated fleet of 50+ elite vehicles with 24/7 concierge and door-to-door delivery.",
+};
 
 export default function Home() {
   return (
